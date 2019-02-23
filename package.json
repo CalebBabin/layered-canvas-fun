@@ -1,0 +1,29 @@
+{
+  "name": "layered-canvas-fun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CalebBabin/layered-canvas-fun.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CalebBabin/layered-canvas-fun/issues"
+  },
+  "homepage": "https://github.com/CalebBabin/layered-canvas-fun#readme",
+  "dependencies": {
+    "css-loader": "^2.1.0",
+    "fibers": "^3.1.1",
+    "node-sass": "^4.11.0",
+    "sass": "^1.17.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
+  }
+}
