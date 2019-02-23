@@ -4,6 +4,7 @@ require('./util.js');
 
 const entities = {
     Cube: require('./entities/cube.js'),
+    SmoothLine: require('./entities/smoothLine.js'),
 }
 
 const canvasArr = [];
@@ -33,10 +34,11 @@ const createCanvas = (layer = -1)=>{
 
 const createGeneric = () => {
     const index = createCanvas();
-    canvasArr[index].entity = new entities.Cube(50, 0, 0, 0.5, {
-        color: '#'+(Math.floor(Math.random()*16777215)).toString(16),
+    canvasArr[index].entity = new entities.SmoothLine(50, 0, 0, 0.5, {
+        color: Math.floor(Math.random()*360),
         mass: 0.1,
-        size: 0.25
+        size: 0.25,
+        hueShift: 0.01,
     });
 }
 
