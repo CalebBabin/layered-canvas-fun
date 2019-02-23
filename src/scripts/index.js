@@ -34,10 +34,10 @@ const createCanvas = (layer = -1)=>{
 
 const createGeneric = () => {
     const index = createCanvas();
-    canvasArr[index].entity = new entities.SmoothLine(50, 0, 0, 0.5, {
-        color: Math.floor(Math.random()*360),
-        mass: 0.1,
-        size: 0.25,
+    canvasArr[index].entity = new entities.SmoothLine(49, 0, 0, 0.5, {
+        hue: Math.floor(Math.random()*360),
+        mass: 0.05,
+        size: 1,
         hueShift: 0.01,
     });
 }

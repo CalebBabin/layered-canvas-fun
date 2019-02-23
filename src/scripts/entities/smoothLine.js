@@ -15,7 +15,9 @@ class SmoothLine {
         this.vx = vx;
         this.vy = vy;
 
-        const nOptions = applyDefaults(options, defaults);
+        const nOptions = defaults;
+        Object.assign(nOptions, options);
+
         this.size = nOptions.size;
         this.mass = nOptions.mass;
         this.hue = nOptions.hue;

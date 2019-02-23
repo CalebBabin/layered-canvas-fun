@@ -14,7 +14,9 @@ class Cube {
         this.vy = vy;
         this.toggle = true;
 
-        const nOptions = applyDefaults(options, defaults);
+        const nOptions = defaults;
+        Object.assign(nOptions, options);
+        
         this.size = nOptions.size;
         this.mass = nOptions.mass;
         this.hue = nOptions.hue;

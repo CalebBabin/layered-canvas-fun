@@ -31,12 +31,3 @@ global.calcGravity = (object) => {
     object.vy += Math.sin(dir)*gravity/10;
     object.vx += Math.cos(dir)*gravity/10;
 }
-
-global.applyDefaults = (options, defaults) => {
-    for (const key in defaults) {
-        if (options[key] === undefined) {
-            options[key] = defaults[key];
-        }
-    }
-    return options;
-}
