@@ -15,6 +15,15 @@ global.distance = (arg1, arg2) => {
 }
 
 global.calcGravity = (object) => {
+    /*
+        object = {
+            x: 5,
+            y: 19,
+            vx: 0.59232,
+            vy: 0.73241,
+            mass: 1.26
+        }
+    */
     const dir = get_angle(object,{x:0,y:0});
     const dist = distance(object,{x:0,y:0});
     const gravity = (object.mass) / dist*dist //(gravityconstant * mass1 * mass2) / distance*distance
