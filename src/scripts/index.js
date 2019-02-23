@@ -34,25 +34,37 @@ const createCanvas = (layer = -1)=>{
 
 const createGeneric = () => {
     const index = createCanvas();
-    canvasArr[index].entity = new entities.SmoothLine(40, 0, 0.5, 2, {
-        hue: Math.floor(Math.random()*360),
-        mass: 1,
-        size: 0.1,
-        hueShift: 0.01,
-    });
+    canvasArr[index].entity = new entities.SmoothLine(
+        Math.random()*100-50,
+        Math.random()*100-50,
+        Math.random()*2-.5,
+        Math.random()*2-.5,
+        {
+            hue: Math.floor(Math.random()*360),
+            mass: Math.random(),
+            size: Math.random(),
+            hueShift: Math.random()/10,
+            fadeout: 0.94,
+        }
+    );
 }
 
 const paint = () => {
+        
     for (let index = 0; index < canvasArr.length; index++) {
         const element = canvasArr[index];
         
         entities[element.entity.type].tick(element.entity);
         entities[element.entity.type].draw(element.entity, element);
     }
+
     window.requestAnimationFrame(paint);
 }
 
 window.addEventListener('DOMContentLoaded', ()=>{
+    createGeneric();
+    createGeneric();
+    createGeneric();
     createGeneric();
     paint();
 });

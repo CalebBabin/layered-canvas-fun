@@ -2,7 +2,8 @@ const defaults = {
     size: 1,
     hue: 0,
     mass: 1,
-    hueShift: 0.1
+    hueShift: 0.1,
+    fadeout: false,
 };
 
 class SmoothLine {
@@ -22,6 +23,7 @@ class SmoothLine {
         this.mass = nOptions.mass;
         this.hue = nOptions.hue;
         this.hueShift = nOptions.hueShift;
+        this.fadeout = nOptions.fadeout;
     }
 
     static tick (entity) {
@@ -37,6 +39,15 @@ class SmoothLine {
         const y = entity.y*cScale;
         const lastX = entity.lastX*cScale;
         const lastY = entity.lastY*cScale;
+
+        if (entity.fadeout && entity.fadeout > 0) {
+            offCanvas.width = canvasContainer.canvas.width;
+            offCanvas.height = canvasContainer.canvas.height;
+            offContext.drawImage(canvasContainer.canvas,0,0);
+            canvasContainer.ctx.clearRect(0,0,canvasContainer.canvas.width,canvasContainer.canvas.height);
+            canvasContainer.ctx.globalAlpha = entity.fadeout;
+            canvasContainer.ctx.drawImage(offCanvas,0,0);
+        }
 
         canvasContainer.ctx.strokeStyle = 'hsl('+entity.hue+', 100%, 50%)';
 
