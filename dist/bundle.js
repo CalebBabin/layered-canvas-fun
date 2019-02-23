@@ -131,6 +131,28 @@ eval("\n/**\n * When source maps are enabled, `style-loader` uses a link element
 
 /***/ }),
 
+/***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn this;\n})();\n\ntry {\n\t// This works if eval is allowed (see CSP)\n\tg = g || new Function(\"return this\")();\n} catch (e) {\n\t// This works if the window reference is available\n\tif (typeof window === \"object\") g = window;\n}\n\n// g can still be undefined, but nothing to do about it...\n// We return undefined, instead of nothing here, so it's\n// easier to handle this case. if(!global) { ...}\n\nmodule.exports = g;\n\n\n//# sourceURL=webpack:///(webpack)/buildin/global.js?");
+
+/***/ }),
+
+/***/ "./src/scripts/entities/cube.js":
+/*!**************************************!*\
+  !*** ./src/scripts/entities/cube.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const defaults = {\r\n    size: 1,\r\n    color: '#fff',\r\n    mass: 1,\r\n};\r\n\r\nclass Cube {\r\n    constructor (x, y, vx, vy, options = {}) {\r\n        this.type = 'Cube';\r\n        this.x = x;\r\n        this.y = y;\r\n        this.vx = vx;\r\n        this.vy = vy;\r\n\r\n        const nOptions = applyDefaults(options, defaults);\r\n        this.size = nOptions.size;\r\n        this.mass = nOptions.mass;\r\n        this.color = nOptions.color;\r\n    }\r\n\r\n    static tick (entity) {\r\n        calcGravity(entity);\r\n        entity.x += entity.vx;\r\n        entity.y += entity.vy;\r\n    }\r\n    static draw (entity, canvasContainer) {\r\n        const x = entity.x*cScale;\r\n        const y = entity.y*cScale;\r\n        canvasContainer.ctx.fillStyle = entity.color;\r\n        canvasContainer.ctx.fillRect(x+cCenter.x, y+cCenter.y, entity.size*cScale, entity.size*cScale);\r\n    }\r\n}\r\n\r\n\r\n\r\nmodule.exports = Cube;\n\n//# sourceURL=webpack:///./src/scripts/entities/cube.js?");
+
+/***/ }),
+
 /***/ "./src/scripts/index.js":
 /*!******************************!*\
   !*** ./src/scripts/index.js ***!
@@ -138,7 +160,18 @@ eval("\n/**\n * When source maps are enabled, `style-loader` uses a link element
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! ../styles/_main.scss */ \"./src/styles/_main.scss\");\r\n\r\nwindow.addEventListener('DOMContentLoaded', ()=>{\r\n\r\n});\n\n//# sourceURL=webpack:///./src/scripts/index.js?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {__webpack_require__(/*! ../styles/_main.scss */ \"./src/styles/_main.scss\");\r\n\r\n__webpack_require__(/*! ./util.js */ \"./src/scripts/util.js\");\r\n\r\nconst entities = {\r\n    Cube: __webpack_require__(/*! ./entities/cube.js */ \"./src/scripts/entities/cube.js\"),\r\n}\r\n\r\nconst canvasArr = [];\r\n\r\nconst setCanvasLayer = (index, layer) => {\r\n    canvasArr[index].canvas.style.zIndex = layer*100;\r\n}\r\n\r\nconst createCanvas = (layer = -1)=>{\r\n    if (layer < 0) {\r\n        layer = canvasArr.length;\r\n    }\r\n    const index = canvasArr.length;\r\n    const newC = {\r\n        canvas: document.createElement('canvas'),\r\n        layer: layer,\r\n        entity: false,\r\n    };\r\n    newC.canvas.width = window.innerWidth;\r\n    newC.canvas.height = window.innerHeight;\r\n    newC.ctx = newC.canvas.getContext('2d');\r\n    canvasArr.push(newC);\r\n    setCanvasLayer(index, layer);\r\n    document.body.appendChild(newC.canvas);\r\n    return index;\r\n}\r\n\r\nconst createGeneric = () => {\r\n    const index = createCanvas();\r\n    canvasArr[index].entity = new entities.Cube(50, 0, 0, 0.5, {\r\n        color: '#'+(Math.floor(Math.random()*16777215)).toString(16),\r\n        mass: 0.1,\r\n        size: 0.25\r\n    });\r\n}\r\n\r\nconst paint = () => {\r\n    for (let index = 0; index < canvasArr.length; index++) {\r\n        const element = canvasArr[index];\r\n        \r\n        entities[element.entity.type].tick(element.entity);\r\n        entities[element.entity.type].draw(element.entity, element);\r\n    }\r\n    window.requestAnimationFrame(paint);\r\n}\r\n\r\nwindow.addEventListener('DOMContentLoaded', ()=>{\r\n    createGeneric();\r\n    paint();\r\n});\r\n\r\nconst resize = ()=>{\r\n    global.cScale = Math.min(window.innerWidth, window.innerHeight)/100;\r\n    global.cCenter = {x: window.innerWidth/2, y: window.innerHeight/2};\r\n\r\n    for (let index = 0; index < canvasArr.length; index++) {\r\n        const element = canvasArr[index];\r\n        element.canvas.width = window.innerWidth;\r\n        element.canvas.height = window.innerHeight;\r\n    }\r\n}\r\nwindow.addEventListener('resize', resize);\r\nresize();\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./src/scripts/index.js?");
+
+/***/ }),
+
+/***/ "./src/scripts/util.js":
+/*!*****************************!*\
+  !*** ./src/scripts/util.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {\r\nglobal.toDegrees = (radian) => {\r\n    return radian * (180 / Math.PI);\r\n}\r\nglobal.toRadians = (angle) => {\r\n    return angle * (Math.PI / 180);\r\n}\r\nglobal.get_angle = (arg1, arg2) => {\r\n    return Math.atan2(arg2.y - arg1.y, arg2.x - arg1.x);\r\n}\r\nglobal.distance = (arg1, arg2) => {\r\n    let a = arg1.x - arg2.x;\r\n    let b = arg1.y - arg2.y;\r\n    return Math.sqrt( a*a + b*b );\r\n}\r\n\r\nglobal.calcGravity = (object) => {\r\n    const dir = get_angle(object,{x:0,y:0});\r\n    const dist = distance(object,{x:0,y:0});\r\n    const gravity = (object.mass) / dist*dist //(gravityconstant * mass1 * mass2) / distance*distance\r\n\r\n    object.vy += Math.sin(dir)*gravity/10;\r\n    object.vx += Math.cos(dir)*gravity/10;\r\n}\r\n\r\nglobal.applyDefaults = (options, defaults) => {\r\n    for (const key in defaults) {\r\n        if (options[key] === undefined) {\r\n            options[key] = defaults[key];\r\n        }\r\n    }\r\n    return options;\r\n}\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./src/scripts/util.js?");
 
 /***/ }),
 
