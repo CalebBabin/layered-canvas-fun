@@ -18,13 +18,13 @@
   },
   "homepage": "https://github.com/CalebBabin/layered-canvas-fun#readme",
   "dependencies": {
-    "css-loader": "^2.1.1",
+    "css-loader": "^6.7.3",
     "fibers": "^3.1.1",
     "node-sass": "^4.12.0",
     "sass": "^1.21.0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.33.0",
-    "webpack-cli": "^3.3.3"
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }
